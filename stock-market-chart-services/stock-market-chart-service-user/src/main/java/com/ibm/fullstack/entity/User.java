@@ -18,7 +18,8 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "_user")
 public class User implements Serializable {
-    private static final long serialVersionUID = -5301215248787089787L;
+
+    private static final long serialVersionUID = 6450421948359070952L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,16 +43,8 @@ public class User implements Serializable {
     private String regCode;
 
     @Basic
-    @Column(name = "_role", nullable = false)
-    private String role;
-
-    @Basic
-    @Column(name = "linkedin_url")
-    private String linkedinUrl;
-
-    @Basic
-    @Column(name = "years_of_experience")
-    private Float yearsOfExperience;
+    @Column(name = "user_type", nullable = false)
+    private String userType;
 
     @Basic
     @Column(name = "_active")

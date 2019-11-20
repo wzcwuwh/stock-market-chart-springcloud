@@ -1,6 +1,6 @@
 spring:
   application:
-    name: eureka-client-service-user
+    name: eureka-client-service-stock-exchange
   jpa:
     show-sql: true
     hibernate:
@@ -19,9 +19,9 @@ spring:
       initial-size: 2
 
 server:
-  port: 7001
+  port: 7004
   servlet:
-    context-path: /user
+    context-path: /stock-exchange
 
 eureka:
   client:
