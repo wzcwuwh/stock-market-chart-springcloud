@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>stock-market-chart</artifactId>
+        <groupId>com.ibm.fullstack</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>stock-market-chart-services</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>stock-market-chart-service-mail</module>
+        <module>stock-market-chart-service-user</module>
+    </modules>
+
+    <packaging>pom</packaging>
+
+    <name>stock-market-chart-services</name>
+    <description>the micro services for stock market chart system</description>
+</project>

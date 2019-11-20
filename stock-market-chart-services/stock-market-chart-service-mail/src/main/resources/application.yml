@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: eureka-client-service-mail
+  mail:
+    host: smtp.163.com
+    username: wzcwuwh@163.com
+    password: qwer12344321 # authorized code
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.port: 994
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.ssl.enable: true
+    default-encoding: UTF-8
+
+server:
+  port: 7006
+  servlet:
+    context-path: /mail
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka/

@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: eureka-client-service-user
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate.format_sql: true
+    open-in-view: false
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/ibm_mentor_on_demand?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: Wzcwu@0214
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      max-active: 4
+      min-idle: 2
+      initial-size: 2
+
+server:
+  port: 7001
+  servlet:
+    context-path: /user
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka/
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000

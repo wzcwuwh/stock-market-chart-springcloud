@@ -1,0 +1,53 @@
+#server1
+---
+spring:
+  application:
+    name: stock-market-chart-eureka
+  profiles: server1
+server:
+  port: 8001
+eureka:
+  instance:
+    hostname: server1
+    prefer-ip-address: false
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://server2:8002/eureka/,http://server3:8003/eureka/
+
+#server2
+---
+spring:
+  application:
+    name: stock-market-chart-eureka
+  profiles: server2
+server:
+  port: 8002
+eureka:
+  instance:
+    hostname: server2
+    prefer-ip-address: false
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://server1:8001/eureka,http://server3:8003/eureka/
+
+#server3
+---
+spring:
+  application:
+    name: stock-market-chart-eureka
+  profiles: server3
+server:
+  port: 8003
+eureka:
+  instance:
+    hostname: server3
+    prefer-ip-address: false
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://server1:8001/eureka,http://server2:8002/eureka

@@ -1,0 +1,37 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: stock-market-chart-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka/
+
+zuul:
+  prefix: /ibm
+  routes:
+    user:
+      path: /user/**
+      serviceId: eureka-client-user
+      strip-prefix: false
+    training:
+      path: /training/**
+      serviceId: eureka-client-training
+      strip-prefix: false
+    search:
+      path: /search/**
+      serviceId: eureka-client-search
+      strip-prefix: false
+    technology:
+      path: /technology/**
+      serviceId: eureka-client-technology
+      strip-prefix: false
+    payment:
+      path: /payment/**
+      serviceId: eureka-client-payment
+      strip-prefix: false
+    common:
+      path: /common/**
+      serviceId: eureka-client-common
+      strip-prefix: false
