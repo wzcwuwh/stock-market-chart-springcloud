@@ -17,6 +17,7 @@
         <module>stock-market-chart-service-company</module>
         <module>stock-market-chart-service-sector</module>
         <module>stock-market-chart-stock-exchange</module>
+        <module>stock-market-chart-service-excel</module>
     </modules>
 
     <packaging>pom</packaging>

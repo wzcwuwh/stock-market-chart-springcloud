@@ -12,9 +12,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 @EnableEurekaClient
 @SpringBootApplication
-public class UserApplication {
+public class ExcelApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(UserApplication.class, args);
+        SpringApplication.run(ExcelApplication.class, args);
     }
 }
