@@ -22,7 +22,7 @@ public class MailController {
         this.mailService = mailService;
     }
 
-    @PostMapping(value = "/mail/thymeleaf/veri/code")
+    @PostMapping(value = "/thymeleaf/veri/code")
     public JSONObject sendThymeleafMailVeriCode(@RequestBody JSONObject userJson){
         log.info(userJson.getString("username"));
         MailBean mailBean = new MailBean();
@@ -44,7 +44,7 @@ public class MailController {
         return retJSON;
     }
 
-    @PostMapping(value = "/mail/thymeleaf/reset/pwd")
+    @PostMapping(value = "/thymeleaf/reset/pwd")
     public JSONObject sendThymeleafMailTmpPwd(@RequestBody JSONObject userJson){
         log.info(userJson.getString("username"));
         MailBean mailBean = new MailBean();

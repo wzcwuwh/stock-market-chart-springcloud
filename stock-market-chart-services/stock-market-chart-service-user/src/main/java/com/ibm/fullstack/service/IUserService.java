@@ -12,4 +12,6 @@ public interface IUserService {
     User userSignin(String useranme, String password);
 
     User userResetPwd(String username, String password);
+
+    JSONObject userSignup(String username, String password);
 }

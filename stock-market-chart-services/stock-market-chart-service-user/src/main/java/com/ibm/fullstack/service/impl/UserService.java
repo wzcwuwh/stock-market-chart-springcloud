@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ibm.fullstack.client.UserClient;
 import com.ibm.fullstack.dao.UserDao;
 import com.ibm.fullstack.entity.User;
+import com.ibm.fullstack.entity.UserConstant;
 import com.ibm.fullstack.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,7 @@ public class UserService implements IUserService {
         jsonObject.put("username", username);
         JSONObject retJson = userClient.sendThymeleafEmailTmpPwd(jsonObject);
         String resetPwd = retJson.getString("resetPwd");
-        User user = new User();
-        user.setUsername(username);
+        User user = userDao.findByUsername(username);
         user.setPassword(resetPwd);
         user.setResetPwd(true);
         user.setResetPwdDate(new Date());
@@ -57,5 +57,21 @@ public class UserService implements IUserService {
         user.setResetPwdDate(new Date());
         userDao.save(user);
         return user;
+    }
+
+    @Override
+    public JSONObject userSignup(String username, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setResetPwd(Boolean.FALSE);
+        user.setResetPwdDate(new Date());
+        user.setUserType(UserConstant.USER_TYPE_USER);
+        User retUser = userDao.save(user);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("username", retUser.getUsername());
+        jsonObject.put("password", retUser.getPassword());
+        return jsonObject;
     }
 }

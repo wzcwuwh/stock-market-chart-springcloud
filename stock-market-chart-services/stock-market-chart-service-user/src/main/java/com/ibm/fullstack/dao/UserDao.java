@@ -10,5 +10,5 @@ public interface UserDao extends JpaRepository<User, Long> {
 
     User findByUsernameAndResetPwd(String username, Boolean resetPwd);
 
-
+    User findByUsername(String username);
 }

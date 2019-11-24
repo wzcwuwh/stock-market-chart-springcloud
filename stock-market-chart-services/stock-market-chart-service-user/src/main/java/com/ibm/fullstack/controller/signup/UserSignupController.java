@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
 @RestController
 public class UserSignupController {
@@ -16,17 +17,23 @@ public class UserSignupController {
     @Autowired
     private UserService userService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/veri/code")
-    public JSONObject userSignup(@RequestBody JSONObject userJson){
+    public JSONObject userVeriCode(@RequestBody JSONObject userJson){
         log.info("the username to signup is : {}", userJson.getString("username"));
         return userService.sendThymeleafEmailVeriCode(userJson.getString("username"));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/reset/pwd")
-    public JSONObject userTmpPwd(@RequestBody JSONObject userJson){
+    public JSONObject userResetPwd(@RequestBody JSONObject userJson){
         log.info("the username of reset pwd is : {}", userJson.getString("username"));
         return userService.sendThymeleafEmailTmpPwd(userJson.getString("username"));
+    }
+
+    @PostMapping("/signup/pwd")
+    public JSONObject userSignupPwd(@RequestBody JSONObject userJson){
+        String username = userJson.getString("username");
+        String password = userJson.getString("password");
+        log.info("the username of signup user is : {}, and the password of signup user is {}", username, password);
+        return userService.userSignup(username, password);
     }
 }
