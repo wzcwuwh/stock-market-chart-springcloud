@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -27,30 +28,25 @@ public class StockPriceDetail implements Serializable {
     @Column(name = "stock_price_detail_id", nullable = false)
     private Long stockPriceDetailId;
 
-    @Excel(name = "Company Code", orderNum = "0")
     @Basic
     @Column(name = "company_code", nullable = false)
     private String companyCode;
 
-    @Excel(name = "Stock Exchange", orderNum = "1")
     @Basic
     @Column(name = "stock_exchange", nullable = false)
     private String stockExchange;
 
-    @Excel(name = "Price Per Share(in Rs)", orderNum = "2")
     @Basic
     @Column(name = "current_price", nullable = false)
-    private Integer currentPrice;
+    private BigDecimal currentPrice;
 
-    @Excel(name = "Date", orderNum = "3")
     @Basic
     @Column(name = "_date", nullable = false)
-    private Date _date;
+    private java.sql.Date _date;
 
-    @Excel(name = "Time", orderNum = "4")
     @Basic
     @Column(name = "_time", nullable = false)
-    private Date _time;
+    private java.sql.Time _time;
 
     @Basic
     @Column(name = "create_date", nullable = false)
