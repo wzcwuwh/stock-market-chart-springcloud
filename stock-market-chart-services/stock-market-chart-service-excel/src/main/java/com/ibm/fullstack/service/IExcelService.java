@@ -1,5 +1,6 @@
 package com.ibm.fullstack.service;
 
+import com.ibm.fullstack.entity.StockPriceDetail;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,4 +18,6 @@ public interface IExcelService {
     public <T> List<T> importExcel(String filePath,Integer titleRows,Integer headerRows, Class<T> pojoClass);
 
     public <T> List<T> importExcel(MultipartFile file, Integer titleRows, Integer headerRows, Class<T> pojoClass);
+
+    public StockPriceDetail uploadExcelToMysql(StockPriceDetail stockPriceDetail);
 }

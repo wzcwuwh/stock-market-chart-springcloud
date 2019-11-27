@@ -21,6 +21,11 @@ public class Company implements Serializable {
 
     private static final long serialVersionUID = 4290111083834660897L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "company_id", nullable = false)
+    private Long companyId;
+
     @Basic
     @Column(name = "company_name", nullable = false)
     private String companyName;
@@ -52,6 +57,10 @@ public class Company implements Serializable {
     @Basic
     @Column(name = "stock_code", nullable = false)
     private String stockCode;
+
+    @Basic
+    @Column(name = "logo_path")
+    private String logoPath;
 
     @Basic
     @Column(name = "create_date", nullable = false)

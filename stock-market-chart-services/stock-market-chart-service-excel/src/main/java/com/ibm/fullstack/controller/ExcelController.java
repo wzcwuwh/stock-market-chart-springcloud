@@ -1,5 +1,7 @@
 package com.ibm.fullstack.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.ibm.fullstack.dto.ExcelStockData;
 import com.ibm.fullstack.entity.StockPriceDetail;
 import com.ibm.fullstack.service.IExcelService;
@@ -19,15 +21,27 @@ public class ExcelController {
     private IExcelService excelService;
 
     @PostMapping(value = "/import", consumes = "multipart/form-data")
-    public void importExcel(@RequestParam(value = "file") MultipartFile file){
+    public JSONObject importExcel(@RequestParam(value = "file") MultipartFile file){
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
         List<ExcelStockData> excelStockData = excelService.importExcel(file, 0, 1, ExcelStockData.class);
+        int count = 0;
         for(ExcelStockData esd: excelStockData){
             StockPriceDetail stockPriceDetail = ExcelDataToMysqlData.transform(esd);
-            System.out.println(stockPriceDetail.getCompanyCode());
-            System.out.println(stockPriceDetail.getStockExchange());
-            System.out.println(stockPriceDetail.getCurrentPrice());
-            System.out.println(stockPriceDetail.get_date());
-            System.out.println(stockPriceDetail.get_time());
+            StockPriceDetail retStockPriceDetail = excelService.uploadExcelToMysql(stockPriceDetail);
+            JSONObject dataJson = new JSONObject();
+            dataJson.put("companyName", retStockPriceDetail.getCompanyCode());
+            dataJson.put("stockExchange", retStockPriceDetail.getStockExchange());
+            dataJson.put("NoOfRecordsImported", excelStockData.size());
+            if(count == 0 || count == excelStockData.size() - 1){
+                dataJson.put("date", retStockPriceDetail.get_date());
+                dataJson.put("time", retStockPriceDetail.get_time());
+                jsonArray.add(dataJson);
+            }
+            count++;
         }
+        jsonObject.put("summaryOfUpload", jsonArray);
+        return jsonObject;
     }
 }

@@ -5,6 +5,7 @@ import com.ibm.fullstack.entity.StockPriceDetail;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ExcelDataToMysqlData {
 
@@ -13,7 +14,11 @@ public class ExcelDataToMysqlData {
         spd.setCompanyCode(esd.getCompanyCode());
         spd.setStockExchange(esd.getStockExchange());
         spd.setCurrentPrice(new BigDecimal(esd.getCurrentPrice()));
-        spd.set_date(strToDate(esd.get_date()));
+
+        String normalDateStr = excelDateToNormalFormat(esd.get_date());
+        java.sql.Date mysqlDate = strToDate(normalDateStr);
+        spd.set_date(mysqlDate);
+
         spd.set_time(strToTime(esd.get_time()));
         return spd;
     }
@@ -42,5 +47,11 @@ public class ExcelDataToMysqlData {
         }
         java.sql.Time time = new java.sql.Time(d.getTime());
         return time;
+    }
+
+    private static String excelDateToNormalFormat(String excelDate){
+        Date time =new Date(excelDate);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(time);
     }
 }

@@ -5,10 +5,13 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import com.ibm.fullstack.dao.ExcelDao;
+import com.ibm.fullstack.entity.StockPriceDetail;
 import com.ibm.fullstack.service.IExcelService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +26,13 @@ import java.util.NoSuchElementException;
 @Service
 @Slf4j
 public class ExcelServiceImpl implements IExcelService {
+
+    @Autowired
+    private ExcelDao excelDao;
+
+    public ExcelServiceImpl(ExcelDao excelDao) {
+        this.excelDao = excelDao;
+    }
 
     public void exportExcel(List<?> list, String title, String sheetName, Class<?> pojoClass, String fileName, boolean isCreateHeader, HttpServletResponse response){
         ExportParams exportParams = new ExportParams(title, sheetName);
@@ -94,5 +104,10 @@ public class ExcelServiceImpl implements IExcelService {
             log.error(e.getMessage());
         }
         return list;
+    }
+
+    @Override
+    public StockPriceDetail uploadExcelToMysql(StockPriceDetail stockPriceDetail) {
+        return excelDao.save(stockPriceDetail);
     }
 }
