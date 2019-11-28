@@ -6,10 +6,7 @@ import com.ibm.fullstack.entity.Company;
 import com.ibm.fullstack.service.impl.CompanyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,6 +39,24 @@ public class CompanyController {
             jsonArray.add(dataJson);
         }
         jsonObject.put("companies", jsonArray);
+        return jsonObject;
+    }
+
+    @PostMapping(value = "/new")
+    public JSONObject createNewCompany(@RequestBody JSONObject companyJson){
+        JSONObject jsonObject = new JSONObject();
+        Company company = new Company();
+        company.setCompanyName(companyJson.getString("companyName"));
+        company.setCEO(companyJson.getString("CEO"));
+        company.setBoardOfDirectors(companyJson.getString("boardOfDirectors"));
+        company.setTurnover(companyJson.getBigDecimal("turnover"));
+        company.setBriefWriteup(companyJson.getString("briefWriteup"));
+        Company retCompany = companyService.createNewCompany(company);
+        if(retCompany != null){
+            jsonObject.put("data", "success");
+        } else {
+            jsonObject.put("data", "fail");
+        }
         return jsonObject;
     }
 }

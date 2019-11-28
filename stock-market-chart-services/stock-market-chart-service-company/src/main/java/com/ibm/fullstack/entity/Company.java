@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -32,7 +33,7 @@ public class Company implements Serializable {
 
     @Basic
     @Column(name = "turnover", nullable = false)
-    private Integer turnover;
+    private BigDecimal turnover;
 
     @Basic
     @Column(name = "CEO", nullable = false)

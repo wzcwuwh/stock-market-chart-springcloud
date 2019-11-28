@@ -24,4 +24,9 @@ public class CompanyService implements ICompanyService {
     public List<Company> getCompanyList() {
         return this.companyDao.findAll();
     }
+
+    @Override
+    public Company createNewCompany(Company company) {
+        return companyDao.save(company);
+    }
 }
