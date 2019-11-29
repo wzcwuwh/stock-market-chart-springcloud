@@ -60,8 +60,8 @@ public class Company implements Serializable {
     private String stockCode;
 
     @Basic
-    @Column(name = "logo_path")
-    private String logoPath;
+    @Column(name = "logo")
+    private byte[] logo;
 
     @Basic
     @Column(name = "create_date", nullable = false)
