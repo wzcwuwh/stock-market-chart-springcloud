@@ -9,9 +9,13 @@ public interface IUserService {
 
     JSONObject sendThymeleafEmailTmpPwd(String username);
 
-    User userSignin(String useranme, String password);
+    User userSignin(String username, String password);
 
     User userResetPwd(String username, String password);
 
     JSONObject userSignup(String username, String password);
+
+    User userLogout(String username);
+
+    User userProfile(User user);
 }

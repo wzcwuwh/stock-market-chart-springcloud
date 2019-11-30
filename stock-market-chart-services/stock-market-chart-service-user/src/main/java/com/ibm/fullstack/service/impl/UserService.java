@@ -44,14 +44,18 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User userSignin(String useranme, String password) {
-        User user = userDao.findByUsernameAndPassword(useranme, password);
-        return user == null ? null : user;
+    public User userSignin(String username, String password) {
+        User user = userDao.findByUsernameAndPassword(username, password);
+        if(user != null){
+            user.setLoginStatus(Boolean.TRUE);
+            userDao.save(user);
+        }
+        return user;
     }
 
     @Override
     public User userResetPwd(String username, String password) {
-        User user = userDao.findByUsernameAndResetPwd(username, Boolean.TRUE);
+        User user = userDao.findByUsername(username);
         user.setPassword(password);
         user.setResetPwd(Boolean.FALSE);
         user.setResetPwdDate(new Date());
@@ -73,5 +77,22 @@ public class UserService implements IUserService {
         jsonObject.put("username", retUser.getUsername());
         jsonObject.put("password", retUser.getPassword());
         return jsonObject;
+    }
+
+    @Override
+    public User userLogout(String username) {
+        User user = userDao.findByUsername(username);
+        user.setLoginStatus(Boolean.FALSE);
+        user = userDao.save(user);
+        return user;
+    }
+
+    @Override
+    public User userProfile(User user) {
+        String username = user.getUsername();
+        User findUser = userDao.findByUsername(username);
+        findUser.setContactNo(user.getContactNo());
+        findUser = userDao.save(findUser);
+        return findUser;
     }
 }

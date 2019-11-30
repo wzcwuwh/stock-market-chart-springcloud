@@ -8,10 +8,9 @@ import com.ibm.fullstack.service.impl.FileStorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.BASE64Decoder;
 
 import java.io.IOException;
-import java.util.Base64;
+import java.math.BigDecimal;
 import java.util.List;
 
 @CrossOrigin(value = "http://localhost:4200")
@@ -39,10 +38,18 @@ public class CompanyController {
         for(Company company: companies){
             byte[] logo = company.getLogo();
             String companyName = company.getCompanyName();
+            String CEO = company.getCEO();
+            String boardChairman = company.getBoardChairman();
+            BigDecimal turnOver = company.getTurnover();
+            String sector = company.getSector();
             String briefWriteup = company.getBriefWriteup();
             JSONObject dataJson = new JSONObject();
             dataJson.put("logo", logo);
             dataJson.put("companyName", companyName);
+            dataJson.put("CEO", CEO);
+            dataJson.put("boardChairman", boardChairman);
+            dataJson.put("turnOver", turnOver);
+            dataJson.put("sector", sector);
             dataJson.put("briefWriteup", briefWriteup);
             jsonArray.add(dataJson);
         }
@@ -56,8 +63,9 @@ public class CompanyController {
         Company company = new Company();
         company.setCompanyName(companyJson.getString("companyName"));
         company.setCEO(companyJson.getString("CEO"));
-        company.setBoardOfDirectors(companyJson.getString("boardOfDirectors"));
+        company.setBoardChairman(companyJson.getString("boardChairman"));
         company.setTurnover(companyJson.getBigDecimal("turnover"));
+        company.setSector(companyJson.getString("sector"));
         company.setBriefWriteup(companyJson.getString("briefWriteup"));
 
         String logoPath = companyJson.getString("logoPath");

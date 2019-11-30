@@ -40,8 +40,8 @@ public class Company implements Serializable {
     private String CEO;
 
     @Basic
-    @Column(name = "board_of_directors")
-    private String boardOfDirectors;
+    @Column(name = "boardChairman")
+    private String boardChairman;
 
     @Basic
     @Column(name = "listed_in_stock_exchanges")

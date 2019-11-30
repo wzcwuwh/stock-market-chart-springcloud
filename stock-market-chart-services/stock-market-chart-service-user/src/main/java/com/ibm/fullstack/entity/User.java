@@ -63,6 +63,10 @@ public class User implements Serializable {
     private Date resetPwdDate;
 
     @Basic
+    @Column(name = "login_status", nullable = false)
+    private Boolean loginStatus;
+
+    @Basic
     @Column(name = "create_date", nullable = false)
     @CreatedDate
     private Date createDate;
