@@ -9,4 +9,6 @@ public interface ICompanyService {
     List<Company> getCompanyList();
 
     Company createNewCompany(Company company);
+
+    List<Company> searchCompany(String companySearchTxt);
 }

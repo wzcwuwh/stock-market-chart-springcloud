@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Base64;
 import java.util.List;
 
 @CrossOrigin(value = "http://localhost:4200")
@@ -36,7 +37,7 @@ public class CompanyController {
 
         List<Company> companies = this.companyService.getCompanyList();
         for(Company company: companies){
-            byte[] logo = company.getLogo();
+            String logo = company.getLogo();
             String companyName = company.getCompanyName();
             String CEO = company.getCEO();
             String boardChairman = company.getBoardChairman();
@@ -68,8 +69,8 @@ public class CompanyController {
         company.setSector(companyJson.getString("sector"));
         company.setBriefWriteup(companyJson.getString("briefWriteup"));
 
-        String logoPath = companyJson.getString("logoPath");
-        log.info(logoPath);
+        String logo = companyJson.getString("logo");
+        log.info(logo);
 //        BASE64Decoder decoder = new BASE64Decoder();
 //        byte[] bytes =new byte[0] ;
 //        if(logoPath.contains("data:image/png;base64")){
@@ -86,7 +87,7 @@ public class CompanyController {
 //                bytes[i]+=256;
 //            }
 //        }
-        company.setLogo(logoPath.getBytes());
+        company.setLogo(logo);
 
         Company retCompany = companyService.createNewCompany(company);
         if(retCompany != null){
@@ -94,6 +95,32 @@ public class CompanyController {
         } else {
             jsonObject.put("data", "fail");
         }
+        return jsonObject;
+    }
+
+    @PostMapping(value = "/search")
+    public JSONObject searchCompany(@RequestBody JSONObject companyJson){
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        String companySearchTxt = companyJson.getString("companySearchTxt");
+        List<Company> companies = companyService.searchCompany(companySearchTxt);
+        for(Company company: companies){
+            String companyName = company.getCompanyName();
+            String CEO = company.getCEO();
+            String boardChairman = company.getBoardChairman();
+            BigDecimal turnOver = company.getTurnover();
+            String sector = company.getSector();
+            String briefWriteup = company.getBriefWriteup();
+            JSONObject dataJson = new JSONObject();
+            dataJson.put("companyName", companyName);
+            dataJson.put("CEO", CEO);
+            dataJson.put("boardChairman", boardChairman);
+            dataJson.put("turnOver", turnOver);
+            dataJson.put("sector", sector);
+            dataJson.put("briefWriteup", briefWriteup);
+            jsonArray.add(dataJson);
+        }
+        jsonObject.put("companies", jsonArray);
         return jsonObject;
     }
 

@@ -29,4 +29,9 @@ public class CompanyService implements ICompanyService {
     public Company createNewCompany(Company company) {
         return companyDao.save(company);
     }
+
+    @Override
+    public List<Company> searchCompany(String companySearchTxt) {
+        return this.companyDao.findCompanyByCompanySearchTxt(companySearchTxt);
+    }
 }

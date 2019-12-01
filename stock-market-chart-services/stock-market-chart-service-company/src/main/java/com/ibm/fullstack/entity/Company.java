@@ -61,7 +61,7 @@ public class Company implements Serializable {
 
     @Basic
     @Column(name = "logo")
-    private byte[] logo;
+    private String logo;
 
     @Basic
     @Column(name = "create_date", nullable = false)
