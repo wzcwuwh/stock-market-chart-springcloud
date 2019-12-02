@@ -82,8 +82,10 @@ public class UserService implements IUserService {
     @Override
     public User userLogout(String username) {
         User user = userDao.findByUsername(username);
-        user.setLoginStatus(Boolean.FALSE);
-        user = userDao.save(user);
+        if(user != null){
+            user.setLoginStatus(Boolean.FALSE);
+            user = userDao.save(user);
+        }
         return user;
     }
 

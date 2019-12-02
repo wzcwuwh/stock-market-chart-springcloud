@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Base64;
 import java.util.List;
 
 @CrossOrigin(value = "http://localhost:4200")
@@ -111,6 +110,7 @@ public class CompanyController {
             BigDecimal turnOver = company.getTurnover();
             String sector = company.getSector();
             String briefWriteup = company.getBriefWriteup();
+            String logo = company.getLogo();
             JSONObject dataJson = new JSONObject();
             dataJson.put("companyName", companyName);
             dataJson.put("CEO", CEO);
@@ -118,6 +118,7 @@ public class CompanyController {
             dataJson.put("turnOver", turnOver);
             dataJson.put("sector", sector);
             dataJson.put("briefWriteup", briefWriteup);
+            dataJson.put("logo", logo);
             jsonArray.add(dataJson);
         }
         jsonObject.put("companies", jsonArray);
