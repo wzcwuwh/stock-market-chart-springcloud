@@ -40,7 +40,7 @@ public class StockExchangeController {
             dataJson.put("stockExchangeRemarks", stockExchangeRemarks);
             jsonArray.add(dataJson);
         }
-        jsonObject.put("companies", jsonArray);
+        jsonObject.put("stockExchanges", jsonArray);
         return jsonObject;
     }
 

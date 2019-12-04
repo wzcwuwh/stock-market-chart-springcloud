@@ -67,27 +67,7 @@ public class CompanyController {
         company.setTurnover(companyJson.getBigDecimal("turnover"));
         company.setSector(companyJson.getString("sector"));
         company.setBriefWriteup(companyJson.getString("briefWriteup"));
-
-        String logo = companyJson.getString("logo");
-        log.info(logo);
-//        BASE64Decoder decoder = new BASE64Decoder();
-//        byte[] bytes =new byte[0] ;
-//        if(logoPath.contains("data:image/png;base64")){
-//            //Base64解码
-//            bytes=decoder.decodeBuffer(logoPath.replace("data:image/png;base64,", ""));
-//        }
-//        if(logoPath.contains("data:image/jpeg;base64")){
-//            //Base64解码
-//            bytes=decoder.decodeBuffer(logoPath.replace("data:image/jpeg;base64,", ""));
-//        }
-//        for(int i=0;i<bytes.length;++i) {
-//            if(bytes[i]<0) {
-//                //adjust exceptional data
-//                bytes[i]+=256;
-//            }
-//        }
-        company.setLogo(logo);
-
+        company.setLogo(companyJson.getString("logo"));
         Company retCompany = companyService.createNewCompany(company);
         if(retCompany != null){
             jsonObject.put("data", "success");
