@@ -3,14 +3,18 @@ package com.ibm.fullstack.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ibm.fullstack.entity.Company;
+import com.ibm.fullstack.entity.StockPriceDetail;
 import com.ibm.fullstack.service.impl.CompanyService;
-import com.ibm.fullstack.service.impl.FileStorageService;
+import com.ibm.fullstack.service.impl.StockPriceDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(value = "http://localhost:4200")
@@ -22,11 +26,11 @@ public class CompanyController {
     private CompanyService companyService;
 
     @Autowired
-    private FileStorageService fileStorageService;
+    private StockPriceDetailService stockPriceDetailService;
 
-    public CompanyController(CompanyService companyService, FileStorageService fileStorageService) {
+    public CompanyController(CompanyService companyService, StockPriceDetailService stockPriceDetailService) {
         this.companyService = companyService;
-        this.fileStorageService = fileStorageService;
+        this.stockPriceDetailService = stockPriceDetailService;
     }
 
     @GetMapping(value = "/list")
@@ -103,6 +107,58 @@ public class CompanyController {
         }
         jsonObject.put("companies", jsonArray);
         return jsonObject;
+    }
+
+    @PostMapping(value = "/compare")
+    public JSONObject compareCompany(@RequestBody JSONObject stockPriceDetailJson){
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        String companyName = stockPriceDetailJson.getString("companyName");
+        String stockExchangeName = stockPriceDetailJson.getString("stockExchangeName");
+
+        Date fromPeriod = stockPriceDetailJson.getDate("fromPeriod");
+        Date toPeriod = stockPriceDetailJson.getDate("toPeriod");
+        String periodSize = stockPriceDetailJson.getString("periodSize");
+        String periodUnit = stockPriceDetailJson.getString("periodUnit");
+
+        List<Date> timeline = getTimeline(fromPeriod, toPeriod, periodSize, periodUnit);
+        List<StockPriceDetail> stockPriceDetails = this.stockPriceDetailService.getStockPriceDetails(companyName, stockExchangeName);
+        stockPriceDetails.forEach((stockPriceDetail)->{
+            log.info(stockPriceDetail.getCurrentPrice().toString());
+        });
+        return jsonObject;
+    }
+
+    private List<Date> getTimeline(Date fromPeriod, Date toPeriod, String periodSize, String periodUnit){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fromPeriod);
+
+        List<Date> timeline = new ArrayList<>();
+        while(calendar.getTime().before(toPeriod)){
+            timeline.add(calendar.getTime());
+            switch(periodUnit)
+            {
+                case "second" :
+                    calendar.add(Calendar.SECOND, Integer.valueOf(periodSize));
+                    break;
+                case "minute" :
+                    calendar.add(Calendar.MINUTE, Integer.valueOf(periodSize));
+                    break;
+                case "hour" :
+                    calendar.add(Calendar.HOUR, Integer.valueOf(periodSize));
+                    break;
+                case "month" :
+                    calendar.add(Calendar.MONTH, Integer.valueOf(periodSize));
+                    break;
+                case "year" :
+                    calendar.add(Calendar.YEAR, Integer.valueOf(periodSize));
+                    break;
+            }
+        }
+        timeline.forEach((date -> {
+            log.info(date.toString());
+        }));
+        return timeline;
     }
 
 }

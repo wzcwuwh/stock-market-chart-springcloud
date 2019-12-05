@@ -2,6 +2,7 @@ package com.ibm.fullstack.service.impl;
 
 import com.ibm.fullstack.dao.CompanyDao;
 import com.ibm.fullstack.entity.Company;
+import com.ibm.fullstack.entity.StockPriceDetail;
 import com.ibm.fullstack.service.ICompanyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,12 @@ public class CompanyService implements ICompanyService {
     @Override
     public List<Company> searchCompany(String companySearchTxt) {
         return this.companyDao.findCompanyByCompanySearchTxt(companySearchTxt);
+    }
+
+    @Override
+    public List<StockPriceDetail> getStockPriceDetails(String companyName, String stockExchange) {
+        String stockCode = this.companyDao.findStockCodeByCompanyName(companyName);
+        log.info("stock code: {} from company name {}", stockCode, companyName);
+        return this.companyDao.findStockPriceDetailByStockCodeAndStockExchange(stockCode, stockExchange);
     }
 }

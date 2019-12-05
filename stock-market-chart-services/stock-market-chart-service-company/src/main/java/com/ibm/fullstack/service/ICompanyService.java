@@ -1,6 +1,7 @@
 package com.ibm.fullstack.service;
 
 import com.ibm.fullstack.entity.Company;
+import com.ibm.fullstack.entity.StockPriceDetail;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface ICompanyService {
     Company createNewCompany(Company company);
 
     List<Company> searchCompany(String companySearchTxt);
+
+    List<StockPriceDetail> getStockPriceDetails(String companyName, String stockExchange);
 }
