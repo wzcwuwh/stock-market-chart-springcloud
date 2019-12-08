@@ -13,5 +13,5 @@ public interface ICompanyService {
 
     List<Company> searchCompany(String companySearchTxt);
 
-    List<StockPriceDetail> getStockPriceDetails(String companyName, String stockExchange);
+    Company findCompanyNameByStockCode(String stockCode);
 }

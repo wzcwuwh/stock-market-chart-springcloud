@@ -16,5 +16,7 @@ public interface CompanyDao extends JpaRepository<Company, Long> {
     @Query(nativeQuery = true, value = "select * from ibm_stock_market_chart.company where company_name like %:companySearchTxt%" )
     List<Company> findCompanyByCompanySearchTxt(@Param("companySearchTxt") String companySearchTxt);
 
-    String findStockCodeByCompanyName(String companyName);
+    Company findStockCodeByCompanyName(String companyName);
+
+    Company findCompanyNameByStockCode(String stockCode);
 }

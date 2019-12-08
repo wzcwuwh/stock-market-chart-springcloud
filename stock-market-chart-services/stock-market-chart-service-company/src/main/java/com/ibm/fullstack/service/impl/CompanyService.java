@@ -37,9 +37,8 @@ public class CompanyService implements ICompanyService {
     }
 
     @Override
-    public List<StockPriceDetail> getStockPriceDetails(String companyName, String stockExchange) {
-        String stockCode = this.companyDao.findStockCodeByCompanyName(companyName);
-        log.info("stock code: {} from company name {}", stockCode, companyName);
-        return this.companyDao.findStockPriceDetailByStockCodeAndStockExchange(stockCode, stockExchange);
+    public Company findCompanyNameByStockCode(String stockCode) {
+        return this.companyDao.findCompanyNameByStockCode(stockCode);
     }
+
 }

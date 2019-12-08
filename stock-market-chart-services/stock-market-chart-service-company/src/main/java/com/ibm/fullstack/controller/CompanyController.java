@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -122,10 +123,32 @@ public class CompanyController {
         String periodUnit = stockPriceDetailJson.getString("periodUnit");
 
         List<Date> timeline = getTimeline(fromPeriod, toPeriod, periodSize, periodUnit);
-        List<StockPriceDetail> stockPriceDetails = this.stockPriceDetailService.getStockPriceDetails(companyName, stockExchangeName);
+
+        List<StockPriceDetail> stockPriceDetails = this.stockPriceDetailService.retrieveStockPriceDetails(companyName, stockExchangeName);
         stockPriceDetails.forEach((stockPriceDetail)->{
+            log.info(stockPriceDetail.get_date().toString());
+            log.info(stockPriceDetail.get_time().toString());
             log.info(stockPriceDetail.getCurrentPrice().toString());
+            java.sql.Date currentDate= stockPriceDetail.get_date();
+            java.sql.Time currentTime = stockPriceDetail.get_time();
+            BigDecimal currentPrice = stockPriceDetail.getCurrentPrice();
+            JSONObject dataJson = new JSONObject();
+            dataJson.put("currentDate", currentDate.toString());
+            dataJson.put("currentTime", currentTime.toString());
+            dataJson.put("currentPrice", currentPrice);
+            jsonArray.add(dataJson);
         });
+        jsonObject.put("stockPriceDetails", jsonArray);
+        return jsonObject;
+    }
+
+    @PostMapping(value = "/name")
+    public JSONObject getCompanyNameByCompanyCode(@RequestBody JSONObject companyJson){
+        JSONObject jsonObject = new JSONObject();
+        String companyCode = companyJson.getString("companyCode");
+        Company company = this.companyService.findCompanyNameByStockCode(companyCode);
+        String companyName = company.getCompanyName();
+        jsonObject.put("companyName", companyName);
         return jsonObject;
     }
 
