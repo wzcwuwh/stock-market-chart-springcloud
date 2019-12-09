@@ -41,7 +41,3 @@ hystrix:
 ribbon:
   ReadTimeout: 30000
   ConnectTimeout: 30000
-
-#file storage property
-file:
-  upload-dir: /Users/IBM/fullstack/uploads

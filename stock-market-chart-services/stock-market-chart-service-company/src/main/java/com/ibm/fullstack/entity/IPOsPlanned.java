@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -36,7 +37,7 @@ public class IPOsPlanned implements Serializable {
 
     @Basic
     @Column(name = "price_per_share", nullable = false)
-    private Integer pricePerShare;
+    private BigDecimal pricePerShare;
 
     @Basic
     @Column(name = "total_no_of_shares", nullable = false)
