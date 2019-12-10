@@ -26,4 +26,6 @@ public interface StockPriceDetailDao extends JpaRepository<StockPriceDetail, Lon
                                                                              @Param("endTime") Time endTime);
 
     List<StockPriceDetail> findStockPriceDetailByCompanyCodeAndStockExchange(String companyCode, String stockExchange);
+
+    List<StockPriceDetail> findCurrentPriceByCompanyCode(String companyCode);
 }

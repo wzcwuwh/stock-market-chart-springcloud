@@ -47,6 +47,7 @@ public class CompanyController {
             BigDecimal turnOver = company.getTurnover();
             String sector = company.getSector();
             String briefWriteup = company.getBriefWriteup();
+            BigDecimal currentPrice = stockPriceDetailService.findCurrentPriceByCompanyCode(company.getStockCode());
             JSONObject dataJson = new JSONObject();
             dataJson.put("logo", logo);
             dataJson.put("companyName", companyName);
@@ -55,6 +56,7 @@ public class CompanyController {
             dataJson.put("turnOver", turnOver);
             dataJson.put("sector", sector);
             dataJson.put("briefWriteup", briefWriteup);
+            dataJson.put("currentPrice", currentPrice);
             jsonArray.add(dataJson);
         }
         jsonObject.put("companies", jsonArray);

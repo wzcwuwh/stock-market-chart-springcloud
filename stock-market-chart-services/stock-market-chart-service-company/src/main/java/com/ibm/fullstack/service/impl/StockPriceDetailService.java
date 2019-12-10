@@ -9,9 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -42,5 +46,19 @@ public class StockPriceDetailService implements IStockPriceDetailService {
         String stockCode = company.getStockCode();
         log.info("stock code: {} from company name {}", stockCode, companyName);
         return this.stockPriceDetailDao.findStockPriceDetailByCompanyCodeAndStockExchange(stockCode, stockExchange);
+    }
+
+    @Override
+    public BigDecimal findCurrentPriceByCompanyCode(String companyCode) {
+        List<StockPriceDetail> stockPriceDetails = stockPriceDetailDao.findCurrentPriceByCompanyCode(companyCode);
+        Optional<StockPriceDetail> optionalStockPriceDetail = stockPriceDetails.
+                stream().
+                sorted(Comparator.comparing(StockPriceDetail::get_date).reversed().
+                        thenComparing(StockPriceDetail::get_time).reversed()).
+                findFirst();
+        if(optionalStockPriceDetail.isPresent()){
+            return optionalStockPriceDetail.get().getCurrentPrice();
+        }
+        return null;
     }
 }
