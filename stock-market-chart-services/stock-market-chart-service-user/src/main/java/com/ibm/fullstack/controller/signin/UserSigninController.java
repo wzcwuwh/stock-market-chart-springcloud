@@ -3,7 +3,6 @@ package com.ibm.fullstack.controller.signin;
 import com.alibaba.fastjson.JSONObject;
 import com.ibm.fullstack.entity.User;
 import com.ibm.fullstack.service.IUserService;
-import com.ibm.fullstack.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

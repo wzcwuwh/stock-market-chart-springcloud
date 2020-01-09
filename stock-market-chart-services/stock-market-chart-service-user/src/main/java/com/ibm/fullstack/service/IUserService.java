@@ -18,4 +18,6 @@ public interface IUserService {
     User userLogout(String username);
 
     User userProfile(User user);
+
+    User findByUsername(String username);
 }

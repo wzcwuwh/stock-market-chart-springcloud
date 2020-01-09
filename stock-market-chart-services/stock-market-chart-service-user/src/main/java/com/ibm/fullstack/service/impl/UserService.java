@@ -97,4 +97,9 @@ public class UserService implements IUserService {
         findUser = userDao.save(findUser);
         return findUser;
     }
+
+    @Override
+    public User findByUsername(String username) {
+        return userDao.findByUsername(username);
+    }
 }
