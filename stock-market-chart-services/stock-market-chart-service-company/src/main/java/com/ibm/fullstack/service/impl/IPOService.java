@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -28,7 +29,15 @@ public class IPOService implements IIPOService {
 
     @Override
     public List<IPOsPlanned> getIPOList() {
-        Sort sort = new Sort(Sort.Direction.DESC, "openDateTime");
+        Sort sort = new mySort(new ArrayList<Sort.Order>());
+        sort.by(Sort.Direction.DESC, "openDateTime");
         return ipoDao.findAll(sort);
+    }
+}
+
+class mySort extends Sort {
+
+    protected mySort(List<Order> orders) {
+        super(orders);
     }
 }

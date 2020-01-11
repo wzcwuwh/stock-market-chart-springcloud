@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: stock-market-chart-admin
+
+server:
+  port: 9001
