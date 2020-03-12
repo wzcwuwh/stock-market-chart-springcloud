@@ -1,10 +1,6 @@
 spring:
   application:
     name: eureka-client-service-user
-  boot:
-    admin:
-      client:
-        url: http://localhost:9001 #config admin-server address
   jpa:
     show-sql: true
     hibernate:
@@ -29,10 +25,18 @@ server:
 
 eureka:
   client:
-    register-with-eureka: true
-    fetch-registry: true
+    registryFetchIntervalSeconds: 5
     service-url:
       defaultZone: http://127.0.0.1:8001/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      management:
+        context-path: /user/actuator
+    health-check-url: http://127.0.0.1:${server.port}/user/actuator/health
+    status-page-url: http://127.0.0.1:${server.port}/user/actuator/info
+    home-page-url: http://127.0.0.1:${server.port}/
 
 management:
   endpoints:

@@ -4,17 +4,33 @@ spring:
   application:
     name: stock-market-chart-eureka
   profiles: server1
+  boot:
+    admin:
+      client:
+        url: http://localhost:9001
 server:
   port: 8001
 eureka:
   instance:
     hostname: server1
     prefer-ip-address: false
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
   client:
-    fetch-registry: true
-    register-with-eureka: true
+    fetch-registry: false
+    register-with-eureka: false
+    registryFetchIntervalSeconds: 5
     service-url:
       defaultZone: http://server2:8002/eureka/,http://server3:8003/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 #server2
 ---
@@ -22,17 +38,33 @@ spring:
   application:
     name: stock-market-chart-eureka
   profiles: server2
+  boot:
+    admin:
+      client:
+        url: http://localhost:9001
 server:
   port: 8002
 eureka:
   instance:
     hostname: server2
     prefer-ip-address: false
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
   client:
-    fetch-registry: true
-    register-with-eureka: true
+    fetch-registry: false
+    register-with-eureka: false
+    registryFetchIntervalSeconds: 5
     service-url:
       defaultZone: http://server1:8001/eureka,http://server3:8003/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 #server3
 ---
@@ -40,14 +72,30 @@ spring:
   application:
     name: stock-market-chart-eureka
   profiles: server3
+  boot:
+    admin:
+      client:
+        url: http://localhost:9001
 server:
   port: 8003
 eureka:
   instance:
     hostname: server3
     prefer-ip-address: false
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
   client:
-    fetch-registry: true
-    register-with-eureka: true
+    fetch-registry: false
+    register-with-eureka: false
+    registryFetchIntervalSeconds: 5
     service-url:
       defaultZone: http://server1:8001/eureka,http://server2:8002/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

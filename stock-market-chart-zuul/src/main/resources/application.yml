@@ -5,8 +5,21 @@ spring:
     name: stock-market-chart-zuul
 eureka:
   client:
+    registryFetchIntervalSeconds: 5
     service-url:
       defaultZone: http://127.0.0.1:8001/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 zuul:
   prefix: /ibm

@@ -12,7 +12,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableCircuitBreaker
 @EnableFeignClients
 @EnableJpaAuditing
-@EnableEurekaClient
 @SpringBootApplication
 public class UserApplication {
 
