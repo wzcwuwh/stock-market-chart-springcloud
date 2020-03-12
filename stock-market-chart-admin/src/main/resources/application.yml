@@ -5,6 +5,22 @@ spring:
     user:
       name: admin
       password: admin
+  mail:
+    host: smtp.163.com
+    username: wzcwuwh@163.com
+    password: qwer12344321
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.port: 994
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.ssl.enable: true
+    default-encoding: UTF-8
+  boot:
+    admin:
+      notify:
+        mail:
+          to: 13072790433@163.com
 
 server:
   port: 9001
