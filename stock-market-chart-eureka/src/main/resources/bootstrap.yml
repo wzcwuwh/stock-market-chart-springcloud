@@ -8,6 +8,8 @@ spring:
     admin:
       client:
         url: http://localhost:9001
+        username: admin
+        password: admin
 server:
   port: 8001
 eureka:
@@ -42,6 +44,8 @@ spring:
     admin:
       client:
         url: http://localhost:9001
+        username: admin
+        password: admin
 server:
   port: 8002
 eureka:
@@ -76,6 +80,8 @@ spring:
     admin:
       client:
         url: http://localhost:9001
+        username: admin
+        password: admin
 server:
   port: 8003
 eureka:
