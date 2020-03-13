@@ -12,6 +12,7 @@
         <module>stock-market-chart-zuul</module>
         <module>stock-market-chart-services</module>
         <module>stock-market-chart-admin</module>
+        <module>stock-market-chart-zipkin</module>
     </modules>
 
     <!--聚合项目父模块-->

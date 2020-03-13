@@ -12,6 +12,11 @@ spring:
       mail.smtp.starttls.required: true
       mail.smtp.ssl.enable: true
     default-encoding: UTF-8
+  zipkin:
+    base-url: http://127.0.0.1:9002/
+  sleuth:
+    sample:
+      probability: 1.0
 
 server:
   port: 7006

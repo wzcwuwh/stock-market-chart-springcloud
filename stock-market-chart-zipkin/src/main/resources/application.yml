@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: stock-market-chart-zipkin
+#  boot:
+#    admin:
+#      client:
+#        url: http://localhost:9001
+#        username: admin
+#        password: admin
+
+server:
+  port: 9002
+
+eureka:
+  client:
+    registryFetchIntervalSeconds: 5
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false

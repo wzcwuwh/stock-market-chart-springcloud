@@ -17,6 +17,11 @@ spring:
       max-active: 4
       min-idle: 2
       initial-size: 2
+  zipkin:
+    base-url: http://127.0.0.1:9002/
+  sleuth:
+    sample:
+      probability: 1.0
 
 server:
   port: 7001
