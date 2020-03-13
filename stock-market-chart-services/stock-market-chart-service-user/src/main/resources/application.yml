@@ -67,3 +67,7 @@ hystrix:
 ribbon:
   ReadTimeout: 30000
   ConnectTimeout: 30000
+
+feign:
+  hystrix:
+    enabled: true
