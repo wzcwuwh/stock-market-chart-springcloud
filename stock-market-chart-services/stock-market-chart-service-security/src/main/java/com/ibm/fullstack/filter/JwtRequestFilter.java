@@ -1,15 +1,18 @@
 package com.ibm.fullstack.filter;
 
 import com.ibm.fullstack.Util.JwtTokenUtil;
+import com.ibm.fullstack.config.IgnoreUrlsConfig;
 import com.ibm.fullstack.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -19,8 +22,35 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
-@Component
 public class JwtRequestFilter extends OncePerRequestFilter {
+
+    @Bean
+    public IgnoreUrlsConfig ignoreUrlsConfig(){
+        return new IgnoreUrlsConfig();
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        log.info("should not filter in class OncePerRequestFilter has been triggered...");
+        AntPathMatcher antPathMatcher = new AntPathMatcher();
+//        return ignoreUrlsConfig().getUrls().stream().anyMatch(p -> antPathMatcher.match(p, request.getServletPath()));
+        log.info(String.valueOf(ignoreUrlsConfig().getUrls().size()));
+//        for(String url: ignoreUrlsConfig().getUrls()){
+//            log.info(url);
+//            log.info(request.getServletPath());
+//            if(antPathMatcher.match(url, request.getServletPath())){
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        }
+        if(antPathMatcher.match("/authenticate", request.getServletPath())){
+            return true;
+        } else {
+            return false;
+        }
+//        return super.shouldNotFilter(request);
+    }
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

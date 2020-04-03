@@ -26,25 +26,9 @@ zuul:
   routes:
     user:
       path: /user/**
-      serviceId: eureka-client-user
+      serviceId: eureka-client-service-user
       strip-prefix: false
-    training:
-      path: /training/**
-      serviceId: eureka-client-training
-      strip-prefix: false
-    search:
-      path: /search/**
-      serviceId: eureka-client-search
-      strip-prefix: false
-    technology:
-      path: /technology/**
-      serviceId: eureka-client-technology
-      strip-prefix: false
-    payment:
-      path: /payment/**
-      serviceId: eureka-client-payment
-      strip-prefix: false
-    common:
-      path: /common/**
-      serviceId: eureka-client-common
+    security:
+      path: /security/**
+      serviceId: eureka-client-service-security
       strip-prefix: false

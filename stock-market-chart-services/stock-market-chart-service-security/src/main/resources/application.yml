@@ -3,7 +3,7 @@ spring:
     name: eureka-client-service-security
 
 server:
-  port: 9001
+  port: 6001
   servlet:
     context-path: /security
 
@@ -14,3 +14,11 @@ eureka:
 
 jwt:
   secret: ibmfullstack
+
+secure:
+  ignored:
+    urls:
+      - http://localhost:9000/ibm/user/signin
+      - http://localhost:9000/ibm/user/signup
+      - http://localhost:9000/ibm/security/authenticate
+      - http://localhost:6001/security/authenticate

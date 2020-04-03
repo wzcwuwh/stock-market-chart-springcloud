@@ -72,12 +72,6 @@
             <artifactId>stock-market-chart-service-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--security-->
-<!--        <dependency>-->
-<!--            <groupId>com.ibm.fullstack</groupId>-->
-<!--            <artifactId>stock-market-chart-service-security</artifactId>-->
-<!--            <version>1.0-SNAPSHOT</version>-->
-<!--        </dependency>-->
         <!--admin client-->
         <!--web flux-->
         <dependency>
