@@ -20,6 +20,7 @@
         <module>stock-market-chart-service-excel</module>
         <module>stock-market-chart-service-common</module>
         <module>stock-market-chart-service-security</module>
+        <module>stock-market-chart-service-es</module>
     </modules>
 
     <packaging>pom</packaging>

@@ -18,22 +18,22 @@ public class UserSigninController {
     private IUserService userService;
 
     @PostMapping(value = "/signin")
-    public CommonResult userSignin(@RequestBody JSONObject userJson){
+    public JSONObject userSignin(@RequestBody JSONObject userJson){
         log.info("user is about to signin");
         String username = userJson.getString("username");
         String password = userJson.getString("password");
         User user = userService.userSignin(username, password);
         JSONObject retJson = new JSONObject();
-        CommonResult commonResult = null;
+//        CommonResult commonResult = null;
         if(user != null){
             Boolean resetPwd = user.getResetPwd();
             String userType = user.getUserType();
 
             retJson.put("resetPwd", resetPwd);
             retJson.put("userType", userType);
-            commonResult =  CommonResult.success(retJson);
+//            commonResult =  CommonResult.success(retJson);
         }
-        return commonResult;
+        return retJson;
     }
 
     @PutMapping(value = "/pwd")
