@@ -29,6 +29,7 @@ stock-market-chart
 ├── stock-market-chart-security
 ├── stock-market-chart-user
 ├── stock-market-chart-exchange
+├── stock-market-chart-es
 ```
 
 ## Tech Stack
@@ -45,6 +46,7 @@ stock-market-chart
 | Mysql           | DB           | https://www.mysql.com/                    |
 | JWT             | JWT token    | https://github.com/jwtk/jjwt              |
 | Lombok          | encap tool   | https://github.com/rzwitserloot/lombok    |
+| ElasticSearch   | text search  | https://www.elastic.co/    |
 
 ### Front End
 | tech            | desc         | official site                             |
