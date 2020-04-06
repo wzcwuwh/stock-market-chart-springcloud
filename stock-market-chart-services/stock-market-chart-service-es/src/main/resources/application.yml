@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: eureka-client-service-es
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/ibm_stock_market_chart?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: Wzcwu@0214
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+  data:
+    elasticsearch:
+      cluster-nodes: 127.0.0.1:9300
+      cluster-name: stock-market-chart-es
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      additional-paths: static/**
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+
+server:
+  port: 7007
+  servlet:
+    context-path: /es
+
+eureka:
+  client:
+    registryFetchIntervalSeconds: 5
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      management:
+        context-path: /user/actuator
+    health-check-url: http://127.0.0.1:${server.port}/user/actuator/health
+    status-page-url: http://127.0.0.1:${server.port}/user/actuator/info
+    home-page-url: http://127.0.0.1:${server.port}/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
