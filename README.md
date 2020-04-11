@@ -16,7 +16,8 @@ Table of Contents
 ## Project Intro
 `stock-market-chart` is a full stack stock market system, using Spring Cloud Greenwich, Spring Boot 2, JPA, Mysql, Angular, to name just a few. It integrates registry center, config center, gateway, etc...
 
-## System Archi
+## System Architecture
+![](document/images/stock-market-chart-architect.jpg)
 
 ## Organization Chart
 ``` lua
