@@ -46,7 +46,8 @@ stock-market-chart
 | Mysql           | DB           | https://www.mysql.com/                    |
 | JWT             | JWT token    | https://github.com/jwtk/jjwt              |
 | Lombok          | encap tool   | https://github.com/rzwitserloot/lombok    |
-| ElasticSearch   | text search  | https://www.elastic.co/    |
+| ElasticSearch   | text search  | https://www.elastic.co/                   |
+| EasyPoi         | excel API    | http://easypoi.mydoc.io/                  |
 
 ### Front End
 | tech            | desc         | official site                             |
