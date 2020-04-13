@@ -102,6 +102,38 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${dockerfile.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <!--comment out this goal if you do not want to docker build when mvn package-->
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>${docker.host}/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <dockerfile>${project.basedir}/Dockerfile</dockerfile>
+                    <buildArgs>
+                        <!--offer args to pass to Dockerfile-->
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                    <pullNewerImage>false</pullNewerImage>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
